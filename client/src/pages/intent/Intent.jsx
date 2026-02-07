@@ -1,96 +1,153 @@
 import { useNavigate } from "react-router-dom";
 
+/* ======================================================
+   BACKEND NOTES
+
+   INTENT SELECTION:
+   - POST /api/user/intent
+     body: { intent: "earn" | "discover" }
+
+   PURPOSE:
+   - Used to personalize dashboard
+   - Used to route onboarding flows
+====================================================== */
+
 const Intent = () => {
   const navigate = useNavigate();
 
-  /**
-   * Handle intent selection
-   * @param {"earn" | "discover"} intentType
-   */
   const handleIntentSelect = (intentType) => {
-    // TODO: Backend integration
-    // - Save intent in backend or session
-    // - POST /api/user/intent { intent: intentType }
-    // - Backend may personalize dashboard later
+    // TEMP (Frontend only)
+    // Will be replaced by backend later
+    localStorage.setItem("userIntent", intentType);
 
-    if (intentType === "earn") {
-      navigate("/earn"); // earn flow entry
-    }
-
-    if (intentType === "discover") {
-      navigate("/discover"); // discover flow entry
-    }
+    if (intentType === "earn") navigate("/earn");
+    if (intentType === "discover") navigate("/discover");
   };
 
-  /**
-   * Skip intent selection
-   */
   const handleSkip = () => {
-    // TODO: Backend integration (optional)
-    // - Mark user intent as null / undecided
     navigate("/dashboard");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 px-0 pt-6">
+    <div className="min-h-screen w-screen bg-gradient-to-b from-slate-900 to-slate-800 overflow-x-hidden">
       {/* Brand */}
-      <h1 className="text-white text-xl font-semibold px-5">SkillEarn</h1>
-
-      {/* Header */}
-      <div className="mt-20 px-5">
-        <h2 className="text-3xl font-semibold text-white">
-          What would you like to do?
-        </h2>
-        <p className="text-slate-300 mt-2">
-          Choose how you want to start on SkillEarn
-        </p>
+      <div className="px-6 pt-6">
+        <h1 className="text-white text-xl font-semibold">SkillEarn</h1>
       </div>
 
-      {/* Card Container */}
-      <div className="mt-10 bg-white rounded-t-3xl px-0 pt-8 pb-10 min-h-[55vh] w-full">
-        <div className="space-y-4 px-5">
-          {/* Earn */}
-          <button
-            onClick={() => handleIntentSelect("earn")}
-            className="w-full flex items-center gap-4 p-4 rounded-2xl border border-blue-400 bg-gradient-to-r from-blue-600 to-blue-400 active:scale-[0.98] transition"
-          >
-            <span className="text-xl">💰</span>
-            <div className="text-left">
-              <p className="font-semibold text-white">
-                Earn from your skills
-              </p>
-              <p className="text-sm text-blue-100">
-                Turn your skills into opportunities.
-              </p>
-            </div>
-          </button>
+      {/* MAIN */}
+      <div className="min-h-[calc(100vh-80px)] flex items-center">
+        {/* MOBILE STACK / DESKTOP SPLIT */}
+        <div className="w-full flex flex-col lg:flex-row lg:items-center">
+          
+          {/* LEFT TEXT */}
+          <div className="px-6 mt-20 lg:mt-0 lg:pl-20 lg:max-w-[600px]">
+            <h2 className="text-3xl lg:text-4xl font-semibold text-white">
+              What would you like to do?
+            </h2>
 
-          {/* Discover */}
-          <button
-            onClick={() => handleIntentSelect("discover")}
-            className="w-full flex items-center gap-4 p-4 rounded-2xl border border-slate-700 bg-gradient-to-r from-slate-700 to-slate-600 active:scale-[0.98] transition"
-          >
-            <span className="text-xl">🔍</span>
-            <div className="text-left">
-              <p className="font-semibold text-white">
-                Discover your skills
-              </p>
-              <p className="text-sm text-slate-200">
-                Explore and discover your strengths.
-              </p>
-            </div>
-          </button>
-        </div>
+            <p className="text-slate-300 mt-4">
+              Choose how you want to start on SkillEarn.  
+            </p>
+          </div>
 
-        {/* Skip */}
-        <div className="flex justify-between items-center mt-20 text-sm text-slate-500 px-5">
-          <span>Not sure yet?</span>
-          <button
-            onClick={handleSkip}
-            className="font-medium text-gray-400 bg-transparent underline"
-          >
-            Skip for now
-          </button>
+          {/* RIGHT FORM (DESKTOP ONLY PUSHED) */}
+          <div className="mt-12 lg:mt-0 lg:ml-auto lg:pr-20 px-2 sm:px-6">
+            <div
+              className="
+                w-full
+                max-w-[520px]
+                bg-white
+                rounded-3xl
+                p-4 sm:p-8 lg:p-10
+                shadow-xl
+              "
+            >
+              <div className="space-y-5">
+                {/* Earn */}
+                <button
+                  onClick={() => handleIntentSelect("earn")}
+                  className="
+                    w-full
+                    min-w-0
+                    flex items-center gap-4
+                    px-4 py-5
+                    rounded-2xl
+                    border border-blue-400
+                    bg-gradient-to-r from-blue-600/70 to-blue-400/70
+                    active:scale-[0.98]
+                    transition
+                    duration-200
+                    hover:bg-gradient-to-r
+                    hover:from-blue-600/90
+                    hover:to-blue-400/90
+                    hover:shadow-lg
+                    hover:-translate-y-1
+                    cursor-pointer
+                    whitespace-nowrap
+                  "
+                  style={{ minWidth: "100%", width: "100%" }}
+                >
+                  <span className="text-2xl flex-shrink-0">💰</span>
+                  <div className="text-left truncate flex-1">
+                    <p className="font-semibold text-white text-lg truncate">
+                      Earn from your skills
+                    </p>
+                    <p className="text-sm text-blue-100 truncate">
+                      Turn your skills into opportunities.
+                    </p>
+                  </div>
+                </button>
+
+                {/* Discover */}
+                <button
+                  onClick={() => handleIntentSelect("discover")}
+                  className="
+                    w-full
+                    min-w-0
+                    flex items-center gap-4
+                    px-4 py-5
+                    rounded-2xl
+                    border border-blue-400
+                    bg-gradient-to-r from-blue-600/70 to-blue-400/70
+                    active:scale-[0.98]
+                    transition
+                    duration-200
+                    hover:bg-gradient-to-r
+                    hover:from-blue-600/90
+                    hover:to-blue-400/90
+                    hover:shadow-lg
+                    hover:-translate-y-1
+                    cursor-pointer
+                    whitespace-nowrap
+                  "
+                  style={{ minWidth: "100%", width: "100%" }}
+                >
+                  <span className="text-2xl flex-shrink-0">🔍</span>
+                  <div className="text-left truncate flex-1">
+                    <p className="font-semibold text-white text-lg truncate">
+                      Discover your skills
+                    </p>
+                    <p className="text-sm text-blue-100 truncate">
+                      Explore and discover your strengths.
+                    </p>
+                  </div>
+                </button>
+              </div>
+
+              {/* Skip */}
+              <div className="flex justify-between items-center mt-12 text-sm text-slate-500 bg-transparent">
+                <span>Not sure yet?</span>
+                <button
+                  onClick={handleSkip}
+                  className="font-medium text-gray-500 underline bg-transparent"
+                >
+                  Skip for now
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
