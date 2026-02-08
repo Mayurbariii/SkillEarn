@@ -3,9 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import Intent from "../pages/intent/Intent";
 import EarnEntry from "../pages/entry/EarnEntry";
 import DiscoverEntry from "../pages/entry/DiscoverEntry";
-import Login from "../pages/Auth/Login";    
+import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
-import Dashboard from "../pages/dashboard/Dashboard";
+
+import Dashboard from "../pages/dashboard/dashboard";
+import DashboardEarn from "../pages/dashboard/DashboardEarn";
+import DashboardDiscover from "../pages/dashboard/DashboardDiscover";
 
 const AppRoutes = () => {
   return (
@@ -21,8 +24,10 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Main app */}
+      {/* Dashboard */}
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/earn" element={<DashboardEarn />} />
+      <Route path="/dashboard/discover" element={<DashboardDiscover />} />
     </Routes>
   );
 };
