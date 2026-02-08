@@ -1,30 +1,41 @@
 import DashboardSidebar from "./DashboardSidebar";
 
-const DashboardLayout = ({ mode, title, subtitle, children }) => {
+const DashboardLayout = ({ title, subtitle, children }) => {
   return (
-    <div className="min-h-screen w-screen bg-slate-100 flex">
-      <DashboardSidebar mode={mode} />
+      <div className="
+        min-h-screen w-full flex
+        bg-slate-100 dark:bg-slate-900
+        text-slate-900 dark:text-slate-100
+        transition-colors duration-300
+      ">
+      {/* Sidebar */}
+      <DashboardSidebar />
 
+      {/* Main content */}
       <div className="flex-1 flex flex-col">
-        <header className="bg-white border-b border-slate-200">
+        {/* Header */}
+        <header
+          className="
+            bg-white dark:bg-slate-900
+            border-b border-slate-200 dark:border-slate-800
+          "
+        >
           <div className="px-6 py-4">
-            <h1 className="text-lg font-semibold text-slate-800 lg:hidden">
-              SkillEarn
+            <h1 className="text-xl font-semibold">
+              {title}
             </h1>
+
+            {subtitle && (
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                {subtitle}
+              </p>
+            )}
           </div>
         </header>
 
-        <main className="flex-1 px-6 py-10">
-          <div className="mb-10 max-w-6xl">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-              {title}
-            </h2>
-            <p className="text-slate-600 mt-2 max-w-2xl">
-              {subtitle}
-            </p>
-          </div>
-
-          <div className="max-w-6xl">{children}</div>
+        {/* Page content */}
+        <main className="flex-1 px-6 py-8">
+          {children}
         </main>
       </div>
     </div>

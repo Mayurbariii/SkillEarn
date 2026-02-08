@@ -1,18 +1,19 @@
-import DashboardEarn from "./DashboardEarn";
-import DashboardDiscover from "./DashboardDiscover";
+import { Navigate, useSearchParams } from "react-router-dom";
 
 const Dashboard = () => {
-  const params = new URLSearchParams(window.location.search);
-  const mode = params.get("mode");
+  const [searchParams] = useSearchParams();
+  const mode = searchParams.get("mode");
 
-  if (mode === "earn") return <DashboardEarn mode="earn" />;
-  if (mode === "discover") return <DashboardDiscover mode="discover" />;
+  if (mode === "earn") {
+    return <Navigate to="/dashboard/earn/skills" replace />;
+  }
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-100">
-      <p className="text-slate-600">No dashboard mode selected</p>
-    </div>
-  );
+  if (mode === "discover") {
+    return <Navigate to="/dashboard/discover" replace />;
+  }
+
+  // Safety fallback
+  return <Navigate to="/" replace />;
 };
 
 export default Dashboard;

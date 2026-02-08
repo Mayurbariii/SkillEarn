@@ -1,80 +1,109 @@
 import { NavLink } from "react-router-dom";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import PaidRoundedIcon from "@mui/icons-material/PaidRounded";
-import QuizRoundedIcon from "@mui/icons-material/QuizRounded";
-import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
+import {
+  Briefcase,
+  ClipboardList,
+  MessageSquare,
+  User,
+  Moon,
+  Sun,
+} from "lucide-react";
+import useDarkMode from "../../hooks/useDarkMode";
 
+/* ----------------------------------
+   Sidebar Item (unchanged)
+----------------------------------- */
 const SidebarItem = ({ to, icon: Icon, label }) => (
   <NavLink
     to={to}
-    className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-slate-600 hover:bg-slate-100 transition"
+    className={({ isActive }) => `
+      group relative flex items-center gap-3
+      px-4 py-3 rounded-xl
+      text-sm font-medium
+      transition-all duration-200 ease-out
+      ${
+        isActive
+          ? "bg-blue-500/10 text-blue-500 dark:bg-blue-500/15 dark:text-blue-400"
+          : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100"
+      }
+    `}
   >
-    <Icon fontSize="small" className="text-slate-500" />
-    <span className="hidden xl:inline">{label}</span>
+    {({ isActive }) => (
+      <>
+        {/* Active indicator */}
+        <span
+          className={`
+            absolute left-0 top-1/2 -translate-y-1/2
+            h-6 w-1 rounded-r
+            bg-blue-500
+            transition-opacity duration-200
+            ${isActive ? "opacity-100" : "opacity-0"}
+          `}
+        />
+
+        <Icon
+          size={20}
+          className="shrink-0 transition-transform duration-200 group-hover:scale-110"
+        />
+
+        <span className="hidden xl:inline">{label}</span>
+      </>
+    )}
   </NavLink>
 );
 
-const DashboardSidebar = ({ mode }) => {
+/* ----------------------------------
+   Sidebar (FIXED LAYOUT)
+----------------------------------- */
+const DashboardSidebar = () => {
+  const [isDark, setIsDark] = useDarkMode();
+
   return (
-    <aside className="hidden lg:flex lg:flex-col w-[72px] xl:w-64 bg-white border-r border-slate-200">
-      <div className="px-6 py-6 font-semibold text-slate-800">
-        SkillEarn
+    <aside
+      className="
+        hidden lg:flex flex-col
+        min-h-screen
+        w-[72px] xl:w-64
+        bg-white dark:bg-slate-900
+        border-r border-slate-200 dark:border-slate-800
+      "
+    >
+      {/* Logo (fixed height) */}
+      <div className="px-4 py-6 flex items-center gap-3 shrink-0">
+        <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold">
+          S
+        </div>
+        <span className="hidden xl:inline text-lg font-semibold text-slate-800 dark:text-slate-100">
+          SkillEarn
+        </span>
       </div>
 
-      <nav className="px-3 space-y-1">
-
-        <SidebarItem
-          to={`/dashboard?mode=${mode}`}
-          icon={HomeRoundedIcon}
-          label="Dashboard"
-        />
-
-        {mode === "earn" && (
-          <>
-            <SidebarItem
-              to="/dashboard/earn/post-skill"
-              icon={PaidRoundedIcon}
-              label="Post Skill"
-            />
-            <SidebarItem
-              to="/dashboard/earn/requests"
-              icon={MessageRoundedIcon}
-              label="Requests"
-            />
-          </>
-        )}
-
-        {mode === "discover" && (
-          <>
-            <SidebarItem
-              to="/dashboard/discover/quiz"
-              icon={QuizRoundedIcon}
-              label="Skill Quiz"
-            />
-            <SidebarItem
-              to="/dashboard/discover/tests"
-              icon={ExploreRoundedIcon}
-              label="Tests"
-            />
-          </>
-        )}
-
-        <div className="my-3 border-t border-slate-200" />
-
-        <SidebarItem
-          to="/dashboard/profile"
-          icon={PersonRoundedIcon}
-          label="Profile"
-        />
-
-        <SidebarItem
-          to={`/dashboard?mode=${mode === "earn" ? "discover" : "earn"}`}
-          icon={ExploreRoundedIcon}
-          label={`Switch to ${mode === "earn" ? "Discover" : "Earn"}`}
-        />
+      {/* Navigation (ONLY flexible section) */}
+      <nav className="flex-1 px-2 space-y-1 overflow-y-auto">
+        <SidebarItem to="/dashboard/earn/skills" icon={Briefcase} label="My Skills" />
+        <SidebarItem to="/dashboard/earn/requests" icon={ClipboardList} label="Requests" />
+        <SidebarItem to="/dashboard/earn/messages" icon={MessageSquare} label="Messages" />
+        <SidebarItem to="/dashboard/earn/profile" icon={User} label="Profile" />
       </nav>
+
+      {/* Theme Toggle (pinned bottom) */}
+      <div className="px-3 py-4 border-t border-slate-200 dark:border-slate-800 shrink-0">
+        <button
+          onClick={() => setIsDark(!isDark)}
+          className="
+            w-full flex items-center gap-3
+            px-3 py-2 rounded-xl
+            text-sm font-medium
+            text-slate-600 dark:text-slate-400
+            hover:bg-slate-100 dark:hover:bg-slate-800
+            transition
+          "
+        >
+          {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          <span className="hidden xl:inline">
+            {isDark ? "Light mode" : "Dark mode"}
+          </span>
+        </button>
+      </div>
     </aside>
   );
 };
