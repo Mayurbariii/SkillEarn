@@ -1,3 +1,4 @@
+import { createElement } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Briefcase,
@@ -10,9 +11,9 @@ import {
 import useDarkMode from "../../hooks/useDarkMode";
 
 /* ----------------------------------
-   Sidebar Item (unchanged)
+   Sidebar Item
 ----------------------------------- */
-const SidebarItem = ({ to, icon: Icon, label }) => (
+const SidebarItem = ({ to, icon, label }) => (
   <NavLink
     to={to}
     className={({ isActive }) => `
@@ -40,10 +41,11 @@ const SidebarItem = ({ to, icon: Icon, label }) => (
           `}
         />
 
-        <Icon
-          size={20}
-          className="shrink-0 transition-transform duration-200 group-hover:scale-110"
-        />
+        {createElement(icon, {
+          size: 20,
+          className:
+            "shrink-0 transition-transform duration-200 group-hover:scale-110",
+        })}
 
         <span className="hidden xl:inline">{label}</span>
       </>
