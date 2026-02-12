@@ -69,7 +69,7 @@ const DashboardSidebar = () => {
         border-r border-slate-200 dark:border-slate-800
       "
     >
-      {/* Logo (fixed height) */}
+      {/* Logo */}
       <div className="px-4 py-6 flex items-center gap-3 shrink-0">
         <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold">
           S
@@ -79,7 +79,7 @@ const DashboardSidebar = () => {
         </span>
       </div>
 
-      {/* Navigation (ONLY flexible section) */}
+      {/* Navigation */}
       <nav className="flex-1 px-2 space-y-1 overflow-y-auto">
         <SidebarItem to="/dashboard/earn/skills" icon={Briefcase} label="My Skills" />
         <SidebarItem to="/dashboard/earn/requests" icon={ClipboardList} label="Requests" />
@@ -87,7 +87,7 @@ const DashboardSidebar = () => {
         <SidebarItem to="/dashboard/earn/profile" icon={User} label="Profile" />
       </nav>
 
-      {/* Theme Toggle (pinned bottom) */}
+      {/* Theme Toggle */}
       <div className="px-3 py-4 border-t border-slate-200 dark:border-slate-800 shrink-0">
         <button
           onClick={() => setIsDark(!isDark)}

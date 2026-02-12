@@ -1,12 +1,13 @@
 import DashboardLayout from "../DashboardLayout";
+import useDarkMode from "../../../hooks/useDarkMode";
+import { Sun, Moon } from "lucide-react";
 
 /**
  * Profile Page (Earn Mode)
- *
- * UI-only implementation.
- * Editable fields & backend integration will be added later.
  */
 const Profile = () => {
+  const [darkMode, setDarkMode] = useDarkMode();
+
   return (
     <DashboardLayout
       mode="earn"
@@ -62,6 +63,46 @@ const Profile = () => {
           >
             Edit profile
           </button>
+        </div>
+
+        {/* 🌙 Dark Mode Toggle (Mobile & Tablet Only) */}
+        <div className="md:hidden">
+          <div
+            className="
+              bg-white dark:bg-slate-900
+              border border-slate-200 dark:border-slate-800
+              rounded-2xl p-6
+              flex items-center justify-between
+            "
+          >
+            <div className="flex items-center gap-3">
+              {darkMode ? (
+                <Moon size={20} className="text-slate-700 dark:text-slate-300" />
+              ) : (
+                <Sun size={20} className="text-slate-700 dark:text-slate-300" />
+              )}
+              <span className="font-medium text-slate-800 dark:text-slate-100">
+                Dark Mode
+              </span>
+            </div>
+
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className={`
+                w-12 h-6 flex items-center rounded-full p-1
+                transition-all duration-300
+                ${darkMode ? "bg-[#5A7ACD]" : "bg-slate-300"}
+              `}
+            >
+              <div
+                className={`
+                  bg-white w-4 h-4 rounded-full shadow-md
+                  transform transition-transform duration-300
+                  ${darkMode ? "translate-x-6" : "translate-x-0"}
+                `}
+              />
+            </button>
+          </div>
         </div>
 
         {/* Basic Info */}
@@ -139,31 +180,13 @@ const Profile = () => {
           </h4>
 
           <div className="flex flex-wrap gap-3">
-            <span
-              className="
-                px-3 py-1.5 rounded-full text-xs
-                bg-blue-50 dark:bg-blue-500/10
-                text-blue-700 dark:text-blue-400
-              "
-            >
+            <span className="px-3 py-1.5 rounded-full text-xs bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400">
               UI/UX Design
             </span>
-            <span
-              className="
-                px-3 py-1.5 rounded-full text-xs
-                bg-blue-50 dark:bg-blue-500/10
-                text-blue-700 dark:text-blue-400
-              "
-            >
+            <span className="px-3 py-1.5 rounded-full text-xs bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400">
               Web Design
             </span>
-            <span
-              className="
-                px-3 py-1.5 rounded-full text-xs
-                bg-blue-50 dark:bg-blue-500/10
-                text-blue-700 dark:text-blue-400
-              "
-            >
+            <span className="px-3 py-1.5 rounded-full text-xs bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400">
               Prototyping
             </span>
           </div>

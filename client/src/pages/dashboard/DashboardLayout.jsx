@@ -1,18 +1,21 @@
 import DashboardSidebar from "./DashboardSidebar";
+import BottomNavbar from "../../components/layout/BottomNavbar";
 
 const DashboardLayout = ({ title, subtitle, children }) => {
   return (
-      <div className="
-        min-h-screen w-full flex
-        bg-slate-100 dark:bg-slate-900
-        text-slate-900 dark:text-slate-100
-        transition-colors duration-300
-      ">
-      {/* Sidebar */}
-      <DashboardSidebar />
+    <div className="
+      min-h-screen w-full flex
+      bg-slate-100 dark:bg-slate-900
+      text-slate-900 dark:text-slate-100
+      transition-colors duration-500 ease-in-out
+    ">
+      {/* Desktop Sidebar */}
+      <div className="hidden md:block">
+        <DashboardSidebar />
+      </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col w-full">
         {/* Header */}
         <header
           className="
@@ -34,9 +37,14 @@ const DashboardLayout = ({ title, subtitle, children }) => {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 px-6 py-8">
+        <main className="flex-1 px-6 py-8 pb-28 md:pb-8">
           {children}
         </main>
+      </div>
+
+      {/* Mobile Bottom Navbar */}
+      <div className="md:hidden">
+        <BottomNavbar />
       </div>
     </div>
   );
