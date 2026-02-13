@@ -1,12 +1,13 @@
 import { createElement } from "react";
 import { NavLink } from "react-router-dom";
 import {
+  Search,
   Briefcase,
-  ClipboardList,
   MessageSquare,
   User,
   Moon,
   Sun,
+  Bell,
 } from "lucide-react";
 import useDarkMode from "../../hooks/useDarkMode";
 
@@ -23,8 +24,8 @@ const SidebarItem = ({ to, icon, label }) => (
       transition-all duration-200 ease-out
       ${
         isActive
-          ? "bg-blue-500/10 text-blue-500 dark:bg-blue-500/15 dark:text-blue-400"
-          : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100"
+          ? "bg-[#5A7ACD]/10 text-[#5A7ACD] dark:bg-[#5A7ACD]/15 dark:text-[#5A7ACD]"
+          : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
       }
     `}
   >
@@ -35,7 +36,7 @@ const SidebarItem = ({ to, icon, label }) => (
           className={`
             absolute left-0 top-1/2 -translate-y-1/2
             h-6 w-1 rounded-r
-            bg-blue-500
+            bg-[#5A7ACD]
             transition-opacity duration-200
             ${isActive ? "opacity-100" : "opacity-0"}
           `}
@@ -54,7 +55,7 @@ const SidebarItem = ({ to, icon, label }) => (
 );
 
 /* ----------------------------------
-   Sidebar (FIXED LAYOUT)
+   Sidebar (Fixed Product Layout)
 ----------------------------------- */
 const DashboardSidebar = () => {
   const [isDark, setIsDark] = useDarkMode();
@@ -63,15 +64,16 @@ const DashboardSidebar = () => {
     <aside
       className="
         hidden lg:flex flex-col
-        min-h-screen
+        h-screen
         w-[72px] xl:w-64
         bg-white dark:bg-slate-900
         border-r border-slate-200 dark:border-slate-800
+        fixed left-0 top-0
       "
     >
       {/* Logo */}
       <div className="px-4 py-6 flex items-center gap-3 shrink-0">
-        <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold">
+        <div className="w-9 h-9 rounded-xl bg-[#5A7ACD] text-white flex items-center justify-center font-semibold">
           S
         </div>
         <span className="hidden xl:inline text-lg font-semibold text-slate-800 dark:text-slate-100">
@@ -79,12 +81,38 @@ const DashboardSidebar = () => {
         </span>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-2 space-y-1 overflow-y-auto">
-        <SidebarItem to="/dashboard/earn/skills" icon={Briefcase} label="My Skills" />
-        <SidebarItem to="/dashboard/earn/requests" icon={ClipboardList} label="Requests" />
-        <SidebarItem to="/dashboard/earn/messages" icon={MessageSquare} label="Messages" />
-        <SidebarItem to="/dashboard/earn/profile" icon={User} label="Profile" />
+      {/* Navigation (NO SCROLL) */}
+      <nav className="flex-1 px-2 space-y-1">
+        {/* Explore FIRST */}
+        <SidebarItem
+          to="/dashboard/earn/explore"
+          icon={Search}
+          label="Explore"
+        />
+
+        <SidebarItem
+          to="/dashboard/earn/skills"
+          icon={Briefcase}
+          label="My Skills"
+        />
+
+        <SidebarItem
+          to="/dashboard/earn/messages"
+          icon={MessageSquare}
+          label="Messages"
+        />
+
+        <SidebarItem
+          to="/dashboard/earn/notifications"
+          icon={Bell}
+          label="Notifications"
+        />
+
+        <SidebarItem
+          to="/dashboard/earn/profile"
+          icon={User}
+          label="Profile"
+        />
       </nav>
 
       {/* Theme Toggle */}

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 /* -------------------------------
    Global base styles (NEUTRAL)
@@ -49,6 +50,8 @@ a:hover {
 body {
   margin: 0;
   min-width: 320px;
+  font-family: 'Poppins', sans-serif;
+
 }
 
 /* Buttons — REMOVE forced dark bg */
@@ -65,4 +68,21 @@ button {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+/* ================================
+   Hide Horizontal Scrollbars
+================================ */
+
+.no-scrollbar {
+  overflow-x: auto;
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
+  display: none;
 }

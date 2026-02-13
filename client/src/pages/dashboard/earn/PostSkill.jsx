@@ -1,12 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import DashboardLayout from "../DashboardLayout";
 
-/**
- * PostSkill Page
- *
- * UI-only implementation.
- * Backend integration will be added later.
- */
 const PostSkill = () => {
   const navigate = useNavigate();
 
@@ -16,7 +11,21 @@ const PostSkill = () => {
       title="Post a Skill"
       subtitle="Share what you know and start getting requests from others."
     >
-      {/* Form Container */}
+      {/* ================= MOBILE TOP BAR ================= */}
+      <div className="flex items-center gap-4 mb-6 md:hidden">
+        <button
+          onClick={() => navigate(-1)}
+          className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95"
+        >
+          <ArrowLeft size={20} />
+        </button>
+
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+          Post Skill
+        </h2>
+      </div>
+
+      {/* ================= FORM CONTAINER ================= */}
       <div className="max-w-3xl">
         <div
           className="
@@ -26,7 +35,6 @@ const PostSkill = () => {
             p-6 sm:p-8
           "
         >
-          
           {/* Section: Basic Info */}
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">
@@ -51,7 +59,7 @@ const PostSkill = () => {
                 px-4 py-3 text-sm
                 bg-white dark:bg-slate-800
                 text-slate-800 dark:text-slate-100
-                focus:outline-none focus:ring-2 focus:ring-blue-500
+                focus:outline-none focus:ring-2 focus:ring-[#5A7ACD]
               "
             />
           </div>
@@ -68,7 +76,7 @@ const PostSkill = () => {
                 px-4 py-3 text-sm
                 bg-white dark:bg-slate-800
                 text-slate-800 dark:text-slate-100
-                focus:outline-none focus:ring-2 focus:ring-blue-500
+                focus:outline-none focus:ring-2 focus:ring-[#5A7ACD]
               "
             >
               <option>Select a category</option>
@@ -87,29 +95,19 @@ const PostSkill = () => {
             </label>
             <textarea
               rows={4}
-              placeholder="Briefly describe what you offer, how you help, and who this is for."
+              placeholder="Briefly describe what you offer."
               className="
                 w-full rounded-xl
                 border border-slate-300 dark:border-slate-700
                 px-4 py-3 text-sm resize-none
                 bg-white dark:bg-slate-800
                 text-slate-800 dark:text-slate-100
-                focus:outline-none focus:ring-2 focus:ring-blue-500
+                focus:outline-none focus:ring-2 focus:ring-[#5A7ACD]
               "
             />
           </div>
 
-          {/* Section: Availability */}
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">
-              Availability
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400">
-              Let people know how active this skill is.
-            </p>
-          </div>
-
-          {/* Status */}
+          {/* Availability */}
           <div className="mb-10">
             <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
               Skill status
@@ -121,7 +119,7 @@ const PostSkill = () => {
                 px-4 py-3 text-sm
                 bg-white dark:bg-slate-800
                 text-slate-800 dark:text-slate-100
-                focus:outline-none focus:ring-2 focus:ring-blue-500
+                focus:outline-none focus:ring-2 focus:ring-[#5A7ACD]
               "
             >
               <option>Active (visible to others)</option>
@@ -132,13 +130,13 @@ const PostSkill = () => {
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-3 sm:justify-end">
             <button
-              onClick={() => navigate("/dashboard?mode=earn")}
+              onClick={() => navigate(-1)}
               className="
                 px-6 py-3 rounded-xl text-sm font-medium
                 border border-slate-300 dark:border-slate-700
                 text-slate-700 dark:text-slate-300
                 hover:bg-slate-100 dark:hover:bg-slate-800
-                transition
+                active:scale-95 transition
               "
             >
               Cancel
@@ -147,14 +145,14 @@ const PostSkill = () => {
             <button
               className="
                 px-6 py-3 rounded-xl text-sm font-medium
-                bg-blue-600 text-white
-                hover:bg-blue-700 transition
+                bg-[#5A7ACD] text-white
+                hover:opacity-90
+                active:scale-95 transition
               "
             >
               Publish skill
             </button>
           </div>
-
         </div>
       </div>
     </DashboardLayout>
