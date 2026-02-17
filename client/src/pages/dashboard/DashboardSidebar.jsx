@@ -1,0 +1,141 @@
+import { createElement } from "react";
+import { NavLink } from "react-router-dom";
+import {
+  Search,
+  Briefcase,
+  MessageSquare,
+  User,
+  Moon,
+  Sun,
+  Bell,
+} from "lucide-react";
+import useDarkMode from "../../hooks/useDarkMode";
+
+/* ----------------------------------
+   Sidebar Item
+----------------------------------- */
+const SidebarItem = ({ to, icon, label }) => (
+  <NavLink
+    to={to}
+    className={({ isActive }) => `
+      group relative flex items-center gap-3
+      px-4 py-3 rounded-xl
+      text-sm font-medium
+      transition-all duration-200 ease-out
+      ${
+        isActive
+          ? "bg-[#5A7ACD]/10 text-[#5A7ACD] dark:bg-[#5A7ACD]/15 dark:text-[#5A7ACD]"
+          : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
+      }
+    `}
+  >
+    {({ isActive }) => (
+      <>
+        {/* Active indicator */}
+        <span
+          className={`
+            absolute left-0 top-1/2 -translate-y-1/2
+            h-6 w-1 rounded-r
+            bg-[#5A7ACD]
+            transition-opacity duration-200
+            ${isActive ? "opacity-100" : "opacity-0"}
+          `}
+        />
+
+        {createElement(icon, {
+          size: 20,
+          className:
+            "shrink-0 transition-transform duration-200 group-hover:scale-110",
+        })}
+
+        <span className="hidden xl:inline">{label}</span>
+      </>
+    )}
+  </NavLink>
+);
+
+/* ----------------------------------
+   Sidebar (Fixed Product Layout)
+----------------------------------- */
+const DashboardSidebar = () => {
+  const [isDark, setIsDark] = useDarkMode();
+
+  return (
+    <aside
+      className="
+        hidden lg:flex flex-col
+        h-screen
+        w-[72px] xl:w-64
+        bg-white dark:bg-slate-900
+        border-r border-slate-200 dark:border-slate-800
+        fixed left-0 top-0
+      "
+    >
+      {/* Logo */}
+      <div className="px-4 py-6 flex items-center gap-3 shrink-0">
+        <div className="w-9 h-9 rounded-xl bg-[#5A7ACD] text-white flex items-center justify-center font-semibold">
+          S
+        </div>
+        <span className="hidden xl:inline text-lg font-semibold text-slate-800 dark:text-slate-100">
+          SkillEarn
+        </span>
+      </div>
+
+      {/* Navigation (NO SCROLL) */}
+      <nav className="flex-1 px-2 space-y-1">
+        {/* Explore FIRST */}
+        <SidebarItem
+          to="/dashboard/earn/explore"
+          icon={Search}
+          label="Explore"
+        />
+
+        <SidebarItem
+          to="/dashboard/earn/skills"
+          icon={Briefcase}
+          label="My Skills"
+        />
+
+        <SidebarItem
+          to="/dashboard/earn/messages"
+          icon={MessageSquare}
+          label="Messages"
+        />
+
+        <SidebarItem
+          to="/dashboard/earn/notifications"
+          icon={Bell}
+          label="Notifications"
+        />
+
+        <SidebarItem
+          to="/dashboard/earn/profile"
+          icon={User}
+          label="Profile"
+        />
+      </nav>
+
+      {/* Theme Toggle */}
+      <div className="px-3 py-4 border-t border-slate-200 dark:border-slate-800 shrink-0">
+        <button
+          onClick={() => setIsDark(!isDark)}
+          className="
+            w-full flex items-center gap-3
+            px-3 py-2 rounded-xl
+            text-sm font-medium
+            text-slate-600 dark:text-slate-400
+            hover:bg-slate-100 dark:hover:bg-slate-800
+            transition
+          "
+        >
+          {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          <span className="hidden xl:inline">
+            {isDark ? "Light mode" : "Dark mode"}
+          </span>
+        </button>
+      </div>
+    </aside>
+  );
+};
+
+export default DashboardSidebar;
